@@ -13,7 +13,7 @@ h1 {
     font-size: 250%;
   }
   h2, h3 {
-    color: #444;
+    color: rgb(27, 70, 212);
     font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
   }
@@ -24,8 +24,12 @@ h1 {
     color: #333;
     font-family: Cambria, Georgia, serif;
   }
-  button {
-    background-color: #eee;
+  li {
+    list-style: none;
+}
+
+button {
+    background-color: hsla(231, 100%, 50%, 0.555);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -37,13 +41,14 @@ h1 {
     margin-top: 1rem;
   }
   button:hover {
-    background-color: black;
+    background-color: rgb(194, 2, 2);
     color: white;
   }
   button:disabled {
     background-color: #eee;
     color: #aaa;
     cursor: auto;
+    color: rgb(27, 70, 212);
   }
   
   /* everywhere else */
