@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Hero } from './hero';
 import { MessageService } from './message.service';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, find, map, tap, filter } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class HeroService {
@@ -23,31 +23,24 @@ export class HeroService {
     getHeroes(): Observable<Hero[]> {
       return this.http.get<Hero[]>(this.FakeApiUrl)
         .pipe(
-          tap(heroes => console.log(heroes)),
+          tap(banaan => console.log(banaan)),
+          
           catchError(this.handleError<Hero[]>('getHeroes', []))
-         
         );
     }
     
-   
-
-     /** GET hero by id. Will 404 if id not found */
   getHero(id: number): Observable<Hero> {
-    const url = `${this.FakeApiUrl}/${id}`;
-    return this.http.get<Hero>(url).pipe(
+    return this.http.get<Hero[]>(this.FakeApiUrl).pipe(
+      map(heroes =>   heroes.find(hero => hero.id === id)),
       tap(_ => this.log(`fetched hero id=${id}`)),
-      catchError(this.handleError<Hero>(`getHero id=${id}`))
+      filter(hero => hero !== undefined), // controleert held niet undefined is
+      map(hero => hero as Hero), // converteer de gevonden held naar het type Hero
+     catchError(this.handleError<Hero>(`getHero id=${id}`))
     );
   }
 
-
-  
-  // }
   /**
    * ERROR HANDLING 
-   * Handle Http operation that failed.
-   * Let the app continue.
-   *
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
